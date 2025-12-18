@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>VoxAssist – AI Customer Support</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    :root {
+      --primary: #2563eb;
+      --dark: #0f172a;
+      --gray: #475569;
+      --light: #f8fafc;
+      --success: #16a34a;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: var(--light);
+      color: var(--dark);
+    }
+
+    section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+    }
+
+    /* ---------- FEATURES ---------- */
+    .features-container {
+      max-width: 1100px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .features-title {
+      font-size: 2.8rem;
+      margin-bottom: 12px;
+    }
+
+    .features-title span {
+      color: var(--primary);
+    }
+
+    .features-subtitle {
+      font-size: 1.05rem;
+      color: var(--gray);
+      max-width: 650px;
+      margin: 0 auto 50px;
+      line-height: 1.6;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 32px 26px;
+      border-radius: 18px;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.08);
+      transition: 0.35s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 22px 50px rgba(37,99,235,0.25);
+    }
+
+    .feature-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+    }
+
+    .feature-card p {
+      font-size: 0.95rem;
+      color: var(--gray);
+      line-height: 1.6;
+    }
+
+    /* ---------- FORM ---------- */
+    .form-container {
+      max-width: 520px;
+      width: 100%;
+      background: white;
+      padding: 35px;
+      border-radius: 18px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+    }
+
+    .form-container h2 {
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .form-container p {
+      text-align: center;
+      color: var(--gray);
+      margin-bottom: 25px;
+      font-size: 0.95rem;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.85rem;
+      color: var(--gray);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      font-size: 0.95rem;
+    }
+
+    .form-group textarea {
+      resize: none;
+      height: 100px;
+    }
+
+    .radio-group {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 20px 0 25px;
+      font-size: 0.9rem;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background: var(--primary);
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .submit-btn:hover {
+      background: #1d4ed8;
+    }
+
+    .success-message {
+      display: none;
+      margin-top: 20px;
+      padding: 14px;
+      background: #dcfce7;
+      color: var(--success);
+      border-radius: 10px;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 900px) {
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- FEATURES SECTION -->
+<section>
+  <div class="features-container">
+    <h1 class="features-title">Vox<span>Assist</span></h1>
+    <p class="features-subtitle">
+      AI-Powered Customer Service Platform.
+    </p>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <h3>24×7 AI Assistant</h3>
+        <p>Always available AI support with zero downtime.</p>
+      </div>
+      <div class="feature-card">
+        <h3>AI Automation</h3>
+        <p>Smart routing via email based on issue priority.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Instant Resolution</h3>
+        <p>Automated response handling within 5 minutes.</p>
+        <br>
+        <br>
+      </div>
+      <p class="features-subtitle">
+      <p style="text-align: center;">
+      <centre>To Register your the Query <strong>Scroll Down.</strong></centre>
+      </p>
+    </p>
+</br>
+</br>
+    </div>
+  </div>
+</section>
+
+<!-- FORM SECTION -->
+<section>
+  <div class="form-container">
+    <h2>Register Your Query</h2>
+    <p>Our AI assistant will contact you shortly.</p>
+
+    <!-- YOUR FORM (UNCHANGED CORE LINE) -->
+    <form id="supportForm"
+          method="POST"
+          action="http://localhost:5678/webhook-test/voxassist"
+          onsubmit="showSuccess(event)">
+
+      <div class="form-group">
+        <label>Name</label>
+        <input name="name" required>
+      </div>
+
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" name="email" required>
+      </div>
+
+      <div class="form-group">
+        <label>Phone</label>
+        <input name="phone" required>
+      </div>
+
+      <div class="form-group">
+        <label>Issue</label>
+        <textarea name="message" required></textarea>
+      </div>
+
+      <button class="submit-btn" type="submit">Submit Query</button>
+
+      <div class="success-message" id="successMessage">
+        ✅ Your query sent successfully.
+      </div>
+
+    </form>
+  </div>
+</section>
+
+<script>
+  function showSuccess(event) {
+    event.preventDefault();
+
+    const form = event.target;
+
+    fetch(form.action, {
+      method: "POST",
+      body: new FormData(form)
+    });
+
+    document.getElementById("successMessage").style.display = "block";
+    form.reset();
+  }
+</script>
+
+</body>
+</html>

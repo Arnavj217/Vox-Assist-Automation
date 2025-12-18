@@ -1,0 +1,568 @@
+{
+  "name": "VoxAssist_Main",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "voxassist",
+        "options": {}
+      },
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        -720,
+        48
+      ],
+      "id": "ff66e708-d28f-432d-a500-3b6c0083e0d7",
+      "webhookId": "e6d2dd99-3d65-4894-91bb-25f3d335987a"
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "ticket_id",
+              "value": "=VOX-{{$now.toMillis()}}"
+            },
+            {
+              "name": "query_status",
+              "value": "Open"
+            },
+            {
+              "name": "contacted_by",
+              "value": "Not Contacted"
+            },
+            {
+              "name": "created_at",
+              "value": "={{$now.setZone('Asia/Kolkata').toFormat('yyyy-LL-dd HH:mm:ss')}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Prepare Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -496,
+        48
+      ],
+      "id": "f541d988-5459-4248-bd20-7bb88938cbb7"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "13AxHncGQ_sKBAFLOvIfJq3ZIN5dAr2BbBxY4W0LT9FU",
+          "mode": "list",
+          "cachedResultName": "Vox_Assist",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/13AxHncGQ_sKBAFLOvIfJq3ZIN5dAr2BbBxY4W0LT9FU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/13AxHncGQ_sKBAFLOvIfJq3ZIN5dAr2BbBxY4W0LT9FU/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "= {{ $json.body.name }}",
+            "Email": "= {{ $json.body.email }}",
+            "Phone": "= {{ $json.body.phone }}",
+            "Customer_Query": "= {{ $json.body.message }}",
+            "Contacted_By": "={{ $json.contacted_by }}",
+            "Query_Status": "= {{ $json.query_status }}",
+            "Created_At": "={{ $json.created_at }}",
+            "Ticket_ID": "=VOX-{{$now.toMillis()}}",
+            "Resolved_At": "Not Resolved"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Ticket_ID",
+              "displayName": "Ticket_ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Phone",
+              "displayName": "Phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Customer_Query",
+              "displayName": "Customer_Query",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Query_Summary",
+              "displayName": "Query_Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Urgency",
+              "displayName": "Urgency",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Preferred_Contact",
+              "displayName": "Preferred_Contact",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Contacted_By",
+              "displayName": "Contacted_By",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Query_Status",
+              "displayName": "Query_Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Created_At",
+              "displayName": "Created_At",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Resolved_At",
+              "displayName": "Resolved_At",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "name": "Save Query",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        -288,
+        -112
+      ],
+      "id": "4eb43c04-5cff-483f-b619-9adcda059c7a",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "8zGXBZSw2SBXqJ8g",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Save Query').item.json.Email }}",
+        "subject": "=Query Recieved Sucessfully : {{ $('Save Query').item.json.Ticket_ID }}",
+        "emailType": "text",
+        "message": "=Dear {{ $('Save Query').item.json.Name }},\n\nYour Query is :\n{{ $('Save Query').item.json.Customer_Query }}\n\nThank you for reaching out to Vox Assist.\n\nWe have successfully received your query and our support team is currently reviewing it. One of our representatives will contact you shortly to assist you further.\n\nWe appreciate you taking the time to raise your concern . Please be assured that we will reach out to you as soon as possible.\n\nWarm regards,\nTeam Vox Assist\nCustomer Support Team",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        384,
+        16
+      ],
+      "id": "f569ceb9-a0c3-4426-809f-50ba7388ef64",
+      "name": "Email to User",
+      "webhookId": "eb7b7eee-2cae-4d72-8661-19ada80942c1",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "IFiGhWQus7brYc8E",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "aravjain2107@gmail.com",
+        "subject": "=New Customer Query Received – {{ $('Save Query').item.json.Ticket_ID }}",
+        "emailType": "text",
+        "message": "=Dear Vox Assist Support Team,\n\nA new customer query has been submitted through the support form. Please find the structured details below for your reference:\n\n\nCustomer Details\n\nName: {{ $('Save Query').item.json.Name }}\n\nContact Number: {{ $('Save Query').item.json.Phone }}\n\nEmail Address: {{ $('Save Query').item.json.Email }}\n\n\n\nQuery Details\n\nCustomer Query:\n{{ $('Save Query').item.json.Customer_Query }}\n\nSummarized Through AI:\n{{ $('AI Model ').item.json.content.parts[0].text }}\n\n\nPlease review the above information and take the necessary action as required.\n\nBest regards,\nVox Assist System\nAutomated Support Notification",
+        "options": {}
+      },
+      "name": "Email to Team",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [
+        640,
+        144
+      ],
+      "id": "25b9ae39-d0c6-4988-8bf7-ac4d2a8648f8",
+      "webhookId": "dab84f6e-4999-4b1b-ae07-ff88365af94b",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "IFiGhWQus7brYc8E",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a customer support AI.\n\nCustomer message:\n\"{{$json.Customer_Query}}\"\n\nTasks:\n1. Summarize the issue in ONE short sentence.\n2. Classify urgency as High, Medium, or Low."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        48
+      ],
+      "id": "50cfe015-9b59-4c09-a556-3d2daf1a0369",
+      "name": "AI Model ",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "xeGu90xBuYgCNqdM",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a customer support AI.\n\nCustomer message:\n\"{{ $('Webhook').item.json.body.message }}\"\n\nYour Task\n\nYour task is to understand the customer’s issue clearly and resolve the query in the best possible way entirely on your own, without involving any human support.\n\nYou must:\n\n1. Carefully read and analyze the customer message.\n\n\n2. Identify the main problem or request.\n\n\n3. Provide a complete, accurate, and final solution by yourself.\n\n\n4. Explain the solution in a detailed, step-by-step manner so the customer can easily follow it.\n\n\n5. Use simple, clear, and professional language.\n\n\n6. Be polite, supportive, and customer-friendly.\n\n\n7. If the query is unclear or missing details, politely ask for clarification while still providing guidance based on available information.\n\n\n8. Do not escalate, forward, or refer the issue to any human team.\n\n\n---\n\nResponse Format (Must Follow)\n\nIssue Understanding:\nClearly and briefly explain what the customer is facing in simple language.\n\nStep-by-Step Solution:\n\n1. Explain the first step clearly and in detail.\n\n\n2. Explain the second step clearly and in detail.\n\n\n3. Explain the third step clearly and in detail.\n(Add more steps if required.)\n\n\n\nAdditional Information (if needed):\nProvide helpful tips, precautions, or important notes related to the solution.\n\nFinal Resolution:\nClearly state the outcome and confirm what the customer should do next or that the issue has been resolved.\n\n\n---\n\nImportant Rules\n\nAlways provide the response in plain text format.\n\nUse proper spacing, headings, and clear structure so the response is easy to read and understand.\n\nDo not mention human agents, teams, or escalation.\n\nDo not say that someone will contact the customer.\n\nDo not assume missing information without clearly stating assumptions.\n\nDo not provide incorrect or misleading answers.\n\nAlways aim to fully resolve the customer’s query in a single, well-structured response."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        800,
+        -80
+      ],
+      "id": "6b30297d-36b0-4306-a4e2-7d80353b4b0b",
+      "name": "Query Resolver",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "xeGu90xBuYgCNqdM",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "reply",
+        "messageId": "={{ $('Email to Team').item.json.id }}",
+        "emailType": "text",
+        "message": "=Query Resolved by AI – Ticket ID {{ $('Save Query').item.json.Ticket_ID }}\n\nDear Team,\n\nThis is to inform you that the customer query associated with Ticket ID  {{ $('Save Query').item.json.Ticket_ID }} has been successfully resolved by the AI system.\n\nThe AI analyzed the customer’s issue and provided a complete, detailed, step-by-step solution directly to the user. The resolution was delivered without any human intervention and addresses the customer’s concern in full.\n\nResolution Summary:\n{{ $('Query Resolver').item.json.content.parts[0].text }}\n\nStatus: Closed – Resolved by AI\n\nPlease refer to the ticket history for the full solution shared with the customer.\n\nBest regards,\nVox Assist System\nAutomated Support Notification",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1488,
+        0
+      ],
+      "id": "4274726b-3f52-4c40-a464-ff986e374637",
+      "name": "Reply of Query to Team",
+      "webhookId": "82d4c99f-8e20-429f-b0fe-7bc060590a88",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "IFiGhWQus7brYc8E",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "reply",
+        "messageId": "={{ $('Email to User').item.json.id }}",
+        "emailType": "text",
+        "message": "=Dear {{ $('Save Query').item.json.Name }},\n\nThank you for contacting Vox Assist.\n\nWe are pleased to inform you that our Vox Assist system has successfully resolved your query. Please find the detailed solution below:\n\n\n{{ $json.content.parts[0].text }}\n\nIf you need any further assistance or have additional questions, feel free to reach out again.\n\nThank you for choosing Vox Assist.\n\nBest regards,\nTeam Vox Assist\nAutomated Support System",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1184,
+        272
+      ],
+      "id": "e5b1e253-d127-4e4b-8466-96a7934d5bb5",
+      "name": "Reply of Query to User",
+      "webhookId": "c0717b20-5df7-4e51-96a6-fcfcf90a4239",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "IFiGhWQus7brYc8E",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.twilio.com/2010-04-01/Accounts/ACCOUNT_SID/Calls.json",
+        "authentication": "basicAuth",
+        "options": {}
+      },
+      "name": "Make Call (Optional)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        368,
+        320
+      ],
+      "id": "0084a82b-c59e-4bc6-8d00-2018eff90dd7",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "any": [
+            {
+              "value1": "={{$json[\"preferred_contact\"]}}",
+              "operation": "equal",
+              "value2": "call"
+            },
+            {
+              "value1": "={{$json[\"urgency\"]}}",
+              "operation": "equal",
+              "value2": "Urgent"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Urgent or Call?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        96,
+        304
+      ],
+      "id": "f21b3077-4c85-4fce-b96c-0ab538df2ff1"
+    },
+    {
+      "parameters": {
+        "amount": 3,
+        "unit": "minutes"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1152,
+        -80
+      ],
+      "id": "4cfa0c24-3304-4420-a4e9-146f8045b418",
+      "name": "Wait",
+      "webhookId": "c6e63904-114e-4c7c-a453-0faea99ae318"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Prepare Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Data": {
+      "main": [
+        [
+          {
+            "node": "Save Query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Query": {
+      "main": [
+        [
+          {
+            "node": "AI Model ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Email to User": {
+      "main": [
+        [
+          {
+            "node": "Email to Team",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Model ": {
+      "main": [
+        [
+          {
+            "node": "Urgent or Call?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Email to Team": {
+      "main": [
+        [
+          {
+            "node": "Query Resolver",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Query Resolver": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reply of Query to User": {
+      "main": [
+        [
+          {
+            "node": "Reply of Query to Team",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Urgent or Call?": {
+      "main": [
+        [
+          {
+            "node": "Email to User",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Make Call (Optional)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Reply of Query to User",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "c829d0dc-9dac-4e17-83e8-de8b9aee2b8b",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "fdf304fcdbf7f89636794e660013b41404b3edd64ef794cfd09138d464e79399"
+  },
+  "id": "aztxbR5i0tAKCwIk",
+  "tags": []
+}
